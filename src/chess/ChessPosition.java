@@ -8,32 +8,31 @@ public class ChessPosition {
     private int row;
 
     public ChessPosition(char column, int row) {
-        if(row < 1 || row > 8 || column < 'a' || column > 'h'){
-            throw new ChessException("Error: -Not possible initiating this position");
+        if (column < 'a' || column > 'h' || row < 1 || row > 8) {
+            throw new ChessException("Error instantiating ChessPosition. Valid values are from a1 to h8.");
         }
-        this.row = row;
         this.column = column;
-    }
-
-    public int getRow() {
-        return row;
+        this.row = row;
     }
 
     public char getColumn() {
         return column;
     }
 
-    public Position toPosition(){
+    public int getRow() {
+        return row;
+    }
+
+    protected Position toPosition() {
         return new Position(8 - row, column - 'a');
     }
 
-    protected static ChessPosition fromPosition(Position position){
-        return new ChessPosition((char)('a' - position.getRow()), 8 - position.getColumn());
+    protected static ChessPosition fromPosition(Position position) {
+        return new ChessPosition((char)('a' + position.getColumn()), 8 - position.getRow());
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "" + column + row;
     }
-
 }
